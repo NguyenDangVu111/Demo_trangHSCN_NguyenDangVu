@@ -1,0 +1,100 @@
+﻿@page "/XemHoSo"
+@using TrangHoSoCaNhan.Models
+
+<h3>Thông Tin Hồ Sơ</h3>
+
+<div class="navbar">
+    <ul>
+        <li><a href="/Tranghosocanhan">Trang Hồ Sơ Cá Nhân</a></li>
+    </ul>
+</div>
+
+<div class="profile-container">
+    <div>
+        @if (!string.IsNullOrEmpty(userProfile.ProfileImageBase64))
+        {
+            <img src="@userProfile.ProfileImageBase64" alt="Hình ảnh cá nhân" class="profile-image" />
+        }
+    </div>
+    <div class="profile-info">
+        <h4>Thông Tin Cá Nhân</h4>
+        <p><strong>Họ và Tên:</strong> @userProfile.FullName</p>
+        <p><strong>Ngày Sinh:</strong> @userProfile.BirthDate.ToShortDateString()</p>
+        <p><strong>Email:</strong> @userProfile.Email</p>
+        <p><strong>Địa Chỉ:</strong> @userProfile.Address</p>
+        <p><strong>Tiểu Sử:</strong> @userProfile.Bio</p>
+        <p><strong>Số Điện Thoại:</strong> @userProfile.PhoneNumber</p>
+        <p><strong>LinkedIn:</strong> <a href="@userProfile.LinkedIn" target="_blank">@userProfile.LinkedIn</a></p>
+        <p><strong>Facebook:</strong> <a href="@userProfile.Facebook" target="_blank">@userProfile.Facebook</a></p>
+        <p><strong>Kinh Nghiệm Làm Việc:</strong> @userProfile.WorkExperience</p>
+        <p><strong>Trình Độ Học Vấn:</strong> @userProfile.Education</p>
+        <p><strong>Kỹ Năng:</strong> @userProfile.Skills</p>
+        <p><strong>Dự Án:</strong> @userProfile.Projects</p>
+        <p><strong>Chứng Chỉ:</strong> @userProfile.Certificates</p>
+        <p><strong>Sở Thích:</strong> @userProfile.Hobbies</p>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f5f5f5;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+    }
+    .navbar {
+        background-color: #007bff;
+        padding: 10px 0;
+        text-align: center;
+    }
+    .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar ul li {
+        display: inline;
+        margin: 0 15px;
+    }
+    .navbar ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+    }
+    .navbar ul li a:hover {
+        text-decoration: underline;
+    }
+    .profile-container {
+        background-color: #fff;
+        padding: 20px;
+        margin: 20px auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        max-width: 800px;
+        width: 100%;
+    }
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        border: 2px solid #ddd;
+    }
+    .profile-info {
+        font-size: 16px;
+        width: 100%;
+    }
+    .profile-info h4 {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+    }
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+</style>
+
+@code {
+    [CascadingParameter] private UserProfile userProfile { get; set; }
+}

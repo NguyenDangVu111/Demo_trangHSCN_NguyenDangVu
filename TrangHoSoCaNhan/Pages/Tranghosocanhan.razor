@@ -1,0 +1,199 @@
+﻿@page "/Tranghosocanhan"
+@inject NavigationManager Navigation
+@using TrangHoSoCaNhan.Models
+
+<h3>Trang Hồ Sơ Cá Nhân</h3>
+
+<div class="navbar">
+    <ul>
+        <li><a href="/XemHoSo">Xem Hồ Sơ</a></li>
+    </ul>
+</div>
+
+<div class="profile-container">
+    <div>
+        @if (!string.IsNullOrEmpty(userProfile.ProfileImageBase64))
+        {
+            <img src="@userProfile.ProfileImageBase64" alt="Hình ảnh cá nhân" class="profile-image" />
+        }
+        else
+        {
+            <p>Chưa có ảnh được tải lên.</p>
+        }
+    </div>
+    <div class="profile-info">
+        <h4>Thông Tin Cá Nhân</h4>
+        <EditForm Model="@userProfile" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <div class="form-group">
+                <label>Họ và Tên:</label>
+                <InputText @bind-Value="userProfile.FullName" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Ngày Sinh:</label>
+                <InputDate @bind-Value="userProfile.BirthDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Email:</label>
+                <InputText @bind-Value="userProfile.Email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Địa Chỉ:</label>
+                <InputTextArea @bind-Value="userProfile.Address" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Ảnh Cá Nhân:</label>
+                <InputFile OnChange="HandleFileSelected" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Tiểu Sử:</label>
+                <InputTextArea @bind-Value="userProfile.Bio" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Số Điện Thoại:</label>
+                <InputText @bind-Value="userProfile.PhoneNumber" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>LinkedIn:</label>
+                <InputText @bind-Value="userProfile.LinkedIn" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Facebook:</label>
+                <InputText @bind-Value="userProfile.Facebook" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Kinh Nghiệm Làm Việc:</label>
+                <InputTextArea @bind-Value="userProfile.WorkExperience" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Trình Độ Học Vấn:</label>
+                <InputTextArea @bind-Value="userProfile.Education" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Kỹ Năng:</label>
+                <InputTextArea @bind-Value="userProfile.Skills" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Dự Án:</label>
+                <InputTextArea @bind-Value="userProfile.Projects" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Chứng Chỉ:</label>
+                <InputTextArea @bind-Value="userProfile.Certificates" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label>Sở Thích:</label>
+                <InputTextArea @bind-Value="userProfile.Hobbies" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Lưu</button>
+        </EditForm>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #f5f5f5;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #333;
+    }
+    .navbar {
+        background-color: #007bff;
+        padding: 10px 0;
+        text-align: center;
+    }
+    .navbar ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar ul li {
+        display: inline;
+        margin: 0 15px;
+    }
+    .navbar ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-size: 18px;
+    }
+    .navbar ul li a:hover {
+        text-decoration: underline;
+    }
+    .profile-container {
+        background-color: #fff;
+        padding: 20px;
+        margin: 20px auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        max-width: 800px;
+        width: 100%;
+    }
+    .profile-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        border: 2px solid #ddd;
+    }
+    .profile-info {
+        font-size: 16px;
+        width: 100%;
+    }
+    .profile-info h4 {
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 5px;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-control {
+        margin-bottom: 10px;
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    .form-control:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+    }
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+@code {
+    [CascadingParameter] private UserProfile userProfile { get; set; }
+    private bool isSubmitted = false;
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        var resizedImage = await file.RequestImageFileAsync("image/png", 150, 150);
+        var buffer = new byte[resizedImage.Size];
+        await resizedImage.OpenReadStream().ReadAsync(buffer);
+
+        userProfile.ProfileImageBase64 = $"data:image/png;base64,{Convert.ToBase64String(buffer)}";
+    }
+
+    private void HandleValidSubmit()
+    {
+        isSubmitted = true;
+        Navigation.NavigateTo("/XemHoSo");
+    }
+}
